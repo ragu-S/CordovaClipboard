@@ -1,0 +1,36 @@
+{
+  "name": "cordova-universal-clipboard",
+  "version": "0.1.0",
+  "description": "Cordova Clipboard Plugin",
+  "cordova": {
+    "id": "cordova-universal-clipboard",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Visigo/CordovaClipboard.git"
+  },
+  "keywords": [
+    "cordova",
+    "clipboard",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8",
+    "cordova-windows8",
+    "cordova-windows"
+  ],
+  "author": "Verso Solutions LLC",
+  "contributors": [
+    {
+      "name" : "Visigo Software Consulting Inc.",
+      "email" : "info@visigo.com",
+      "url" : "http://www.visigo.com/"
+    }
+  ],
+  "license": "MIT"
+}
