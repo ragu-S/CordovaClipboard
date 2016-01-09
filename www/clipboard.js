@@ -5,7 +5,7 @@ var cordova = require('cordova');
  * 
  * @constructor
  */
-function Clipboard () {}
+//function Clipboard () {}
 
 /**
  * Sets the clipboard content
@@ -14,10 +14,10 @@ function Clipboard () {}
  * @param {Function} onSuccess The function to call in case of success (takes the copied text as argument)
  * @param {Function} onFail    The function to call in case of error
  */
-Clipboard.prototype.copy = function (text, onSuccess, onFail) {
-    if (typeof text === "undefined" || text === null) text = "";
-	cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
-};
+// Clipboard.prototype.copy = function (text, onSuccess, onFail) {
+//     if (typeof text === "undefined" || text === null) text = "";
+// 	cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
+// };
 
 /**
  * Gets the clipboard content
@@ -25,10 +25,20 @@ Clipboard.prototype.copy = function (text, onSuccess, onFail) {
  * @param {Function} onSuccess The function to call in case of success
  * @param {Function} onFail    The function to call in case of error
  */
-Clipboard.prototype.paste = function (onSuccess, onFail) {
-	cordova.exec(onSuccess, onFail, "Clipboard", "paste", []);
-};
+// Clipboard.prototype.paste = function (onSuccess, onFail) {
+// 	cordova.exec(onSuccess, onFail, "Clipboard", "paste", []);
+// };
 
 // Register the plugin
-var clipboard = new Clipboard();
-module.exports = clipboard;
+//var clipboard = new Clipboard();
+//module.exports = clipboard;
+
+module.exports = {
+	copy: function (text, onSuccess, onFail) {
+    		if (typeof text === "undefined" || text === null) text = "";
+			cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
+	},
+	paste: function (onSuccess, onFail) {
+		cordova.exec(onSuccess, onFail, "Clipboard", "paste", []);
+	}
+};
