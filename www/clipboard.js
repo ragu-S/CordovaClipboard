@@ -36,7 +36,7 @@ var cordova = require('cordova');
 module.exports = {
 	copy: function (text, onSuccess, onFail) {
     		if (typeof text === "undefined" || text === null) text = "";
-			cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
+		cordova.exec(onSuccess, onFail, "Clipboard", "copy", [text]);
 	},
 	paste: function (onSuccess, onFail) {
 		cordova.exec(onSuccess, onFail, "Clipboard", "paste", []);
