@@ -1,4 +1,5 @@
-var cordova = window.cordova ? window.cordova : require('cordova');
+// var cordova;
+// if(window && !window.cordova) cordova = require('cordova');
 
 /**
  * Clipboard plugin for Cordova
