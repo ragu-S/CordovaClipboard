@@ -16,46 +16,57 @@ public class Clipboard extends CordovaPlugin {
 
     private static final String actionCopy = "copy";
     private static final String actionPaste = "paste";
+    private static CallbackContext cb;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+        cb = callbackContext;
+        final String _action = action;
+        final JSONArray _args = args;
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(cb != null) {
+                    pluginAction(_action, _args);
+                }
+            }
+        });
+
+        return true;
+    }
+    private void pluginAction(final String action, final JSONArray args) {
         ClipboardManager clipboard = (ClipboardManager) cordova.getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
         if (action.equals(actionCopy)) {
             try {
-                String text = args.getString(0);
+                final String text = args.getString(0);
                 ClipData clip = ClipData.newPlainText("Text", text);
 
                 clipboard.setPrimaryClip(clip);
 
-                callbackContext.success(text);
-
-                return true;
             } catch (JSONException e) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION));
+                cb.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION));
             } catch (Exception e) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.toString()));
+                cb.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.toString()));
             }
         } else if (action.equals(actionPaste)) {
             if (!clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.NO_RESULT));
+                cb.sendPluginResult(new PluginResult(PluginResult.Status.NO_RESULT));
             }
-
             try {
                 ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
                 String text = item.getText().toString();
 
                 if (text == null) text = "";
 
-                callbackContext.success(text);
+                cb.success(text);
 
-                return true;
             } catch (Exception e) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.toString()));
+                cb.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.toString()));
             }
         }
-
-        return false;
     }
 }
 
